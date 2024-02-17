@@ -1,23 +1,24 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {useFormik} from "formik";
 import * as Yup from 'yup'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {tokenContext} from "../context/tokenContext";
 
 export default function Register() {
     let navigate = useNavigate();
     let [isLoading, setLoading] = useState(false);
     let [errMessage, setErr] = useState(null);
-
+    const {setToken, userToken} = useContext(tokenContext)
 
     const signUpSchema = Yup.object().shape({
     name: Yup.string().min(3, 'Minimum length is 3').max(15,'max length is 15').required('Name is required'),
-        email: Yup.string().required('Email is required'),
-        phone: Yup.string().required('Phone is required'),
-        password: Yup.string().required('password is required'),
+        email: Yup.string().required('Email is required').matches( /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Enter a correct email address'),
+        phone: Yup.string().required('Phone is required').matches(/^(010|011|012|015)\d{8}$/,'Enter a correct phone number'),
+        password: Yup.string().required('password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,'Enter a correct password'),
         rePassword: Yup.string().oneOf([
             Yup.ref('password')
-        ])
+        ], 'Passwords are not matching')
 
     })
 
@@ -29,6 +30,10 @@ export default function Register() {
       setLoading(true)
       if(data.message === 'success') {
         navigate('/home')
+          localStorage.setItem('userToken',data.token)
+          setToken(data.token)
+          console.log(userToken)
+
       }
     }
 
@@ -69,7 +74,7 @@ export default function Register() {
                     </div>
                     <div className={'col-md-12'}>
                         <label  htmlFor={'userPhone'}>Phone</label>
-                        <input onBlur={formik.handleBlur} value={formik.values.phone} onChange={formik.handleChange} name={'phone'} type={'number'} id={'userPhone'} className={'form-control'}/>
+                        <input onBlur={formik.handleBlur} value={formik.values.phone} onChange={formik.handleChange} name={'phone'} type={'text'} id={'userPhone'} className={'form-control'}/>
                         {formik.errors.phone && formik.touched.phone?
                             <p className={'text-danger'}>{formik.errors.phone}</p> : ''
                         }

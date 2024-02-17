@@ -10,6 +10,7 @@ import Products from "./components/Products/Products";
 import Details from "./components/Details/Details";
 import Notfound from "./components/Notfound/Notfound";
 import Cart from "./components/Cart/Cart";
+import UserTokenProvider from "./components/context/tokenContext";
 
 function App() {
 
@@ -32,9 +33,9 @@ const router = createBrowserRouter([
 
 
   return (
-    <div className="App">
-        <RouterProvider router={router}/>
-    </div>
+      <UserTokenProvider>
+          <RouterProvider router={router}/>
+      </UserTokenProvider>
   );
 }
 
