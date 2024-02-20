@@ -11,20 +11,41 @@ import Details from "./components/Details/Details";
 import Notfound from "./components/Notfound/Notfound";
 import Cart from "./components/Cart/Cart";
 import UserTokenProvider from "./components/context/tokenContext";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
 
 const router = createBrowserRouter([
   {path: '', element:<Layout/>, children: [
-          {path:'', element: <Home/>},
-          {path:'home', element: <Home/>},
+          {path:'', element: <ProtectedRoute>
+                  <Home/>
+              </ProtectedRoute>},
+          {path:'home', element: <ProtectedRoute>
+                  <Home/>
+              </ProtectedRoute>,},
           {path:'login', element: <Login/>},
           {path:'register', element: <Register/>},
-          {path:'categories', element: <Category/>},
-          {path:'brands', element: <Brands/>},
-          {path:'cart', element: <Cart/>},
-          {path:'products', element: <Products/>},
-          {path:'details', element: <Details/>},
+          {path:'categories', element:
+                  <ProtectedRoute>
+                      <Category/>
+                      </ProtectedRoute>},
+          {path:'brands', element:
+                  <ProtectedRoute>
+                  <Brands/>
+                      </ProtectedRoute>},
+
+          {path:'cart', element:
+                  <ProtectedRoute>
+                  <Cart/>
+                      </ProtectedRoute>},
+          {path:'products', element:
+                  <ProtectedRoute>
+                  <Products/>
+                      </ProtectedRoute>},
+          {path:'details', element:
+                  <ProtectedRoute>
+                  <Details/>
+                      </ProtectedRoute>},
           {path:'*', element: <Notfound/>},
 
     ] },
