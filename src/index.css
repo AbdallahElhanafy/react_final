@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.text-main {
+  color: green;
+}
+
+.product{
+  transition: all ease-in 0.2s;
+  border: 0;
+}
+
+.product:hover {
+  border: solid 1px green;
+
+}
