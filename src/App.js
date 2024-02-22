@@ -12,6 +12,8 @@ import Notfound from "./components/Notfound/Notfound";
 import Cart from "./components/Cart/Cart";
 import UserTokenProvider from "./components/context/tokenContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import CartProvider from "./components/context/cartContext";
+import {ToastContainer} from "react-toastify";
 
 function App() {
 
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
                   <ProtectedRoute>
                   <Products/>
                       </ProtectedRoute>},
-          {path:'details', element:
+          {path:'details/:item', element:
                   <ProtectedRoute>
                   <Details/>
                       </ProtectedRoute>},
@@ -54,9 +56,13 @@ const router = createBrowserRouter([
 
 
   return (
-      <UserTokenProvider>
-          <RouterProvider router={router}/>
-      </UserTokenProvider>
+      <CartProvider>
+          <UserTokenProvider>
+              <RouterProvider router={router}/>
+              <ToastContainer theme={'colored'}/>
+          </UserTokenProvider>
+      </CartProvider>
+
   );
 }
 

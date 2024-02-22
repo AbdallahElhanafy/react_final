@@ -32,7 +32,6 @@ export default function Register() {
         navigate('/home')
           localStorage.setItem('userToken',data.token)
           setToken(data.token)
-          console.log(userToken)
 
       }
     }
