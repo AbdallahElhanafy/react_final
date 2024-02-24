@@ -11,9 +11,21 @@ export default function Navbar() {
 
     useEffect(()=>{
         (async ()=>{
-            let data= await getCart()
-            console.log(data)
-            setCartNumber(data.data.numOfCartItems)
+
+            if (localStorage.getItem('userToken') !== null){
+
+                let data= await getCart()
+                console.log(data)
+                if(data.data.status==='success'){
+                    console.log(data)
+                    setCartNumber(data.data.numOfCartItems)
+                }
+                else {
+                    setCartNumber(0)
+                }
+            }
+
+
 
         })()
     },[])

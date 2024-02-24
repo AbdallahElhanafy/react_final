@@ -24,6 +24,20 @@ export default function CartProvider (props) {
 
     }
 
+    function deleteCartItem(id) {
+        return axios.delete(`${baseURL}/api/v1/cart/${id}`, {
+            headers: header
+        })
+    }
+
+    function updateProductCount(id,count) {
+        return axios.put(`${baseURL}/api/v1/cart/${id}`, {
+            count: count
+        }, {
+            headers: header
+        })
+    }
+
     function getCart () {
         return axios.get(`${baseURL}/api/v1/cart`,  {
             headers: header
@@ -31,7 +45,13 @@ export default function CartProvider (props) {
 
     }
 
-    return <cartContext.Provider value={{addToCart,setCartNumber,cartNumber,getCart}}>
+    function clearCart(){
+        return axios.delete(`${baseURL}/api/v1/cart`,  {
+            headers: header
+        });
+    }
+
+    return <cartContext.Provider value={{addToCart,setCartNumber,cartNumber,getCart,clearCart, deleteCartItem,updateProductCount}}>
         {props.children}
         </cartContext.Provider>
 }
