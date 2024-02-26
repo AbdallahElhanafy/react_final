@@ -9,25 +9,21 @@ export default function Navbar() {
     const {cartNumber,setCartNumber,getCart} = useContext(cartContext)
 
 
+    async function getCartNumber () {
+        try {
+           let data = await getCart()
+            setCartNumber(data.data.numOfCartItems)
+        }
+
+        catch (e) {
+            setCartNumber(0)
+        }
+
+    }
+
+
     useEffect(()=>{
-        (async ()=>{
-
-            if (localStorage.getItem('userToken') !== null){
-
-                let data= await getCart()
-                console.log(data)
-                if(data.data.status==='success'){
-                    console.log(data)
-                    setCartNumber(data.data.numOfCartItems)
-                }
-                else {
-                    setCartNumber(0)
-                }
-            }
-
-
-
-        })()
+        getCartNumber()
     },[])
 
 

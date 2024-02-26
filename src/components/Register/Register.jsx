@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {tokenContext} from "../context/tokenContext";
+import {toast} from "react-toastify";
 
 export default function Register() {
     let navigate = useNavigate();
@@ -18,22 +19,33 @@ export default function Register() {
         password: Yup.string().required('password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,'Enter a correct password'),
         rePassword: Yup.string().oneOf([
             Yup.ref('password')
-        ], 'Passwords are not matching')
+        ], 'Passwords are not matching').required('Re-password is required')
 
     })
 
   async  function signUp (values)  {
         setLoading(false);
-   const {data} =   await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup',values).catch(reason => {
-       setErr(reason);
-   })
-      setLoading(true)
-      if(data.message === 'success') {
-        navigate('/home')
-          localStorage.setItem('userToken',data.token)
-          setToken(data.token)
+        try{
+            const {data} =   await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup',values)
+            setLoading(true)
+            navigate('/home')
+            localStorage.setItem('userToken',data.token)
+            setToken(data.token)
+            toast('Account Created',{
+                type: 'success'
+            })
+        }
+        catch (error) {
+            if (error.response.status === 409){
+                toast(error.response.data.message,{
+                    type: 'error'
+                })
+            }
+        }
 
-      }
+
+
+
     }
 
     const formik = useFormik(

@@ -4,6 +4,7 @@ import {useFormik} from "formik";
 import axios from "axios";
 import {tokenContext} from "../context/tokenContext";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 
@@ -12,14 +13,28 @@ export default function Login() {
     const navigate = useNavigate()
 
      async function login (values){
-        let {data} =  await  axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin',values).catch(reason =>
-        console.log(reason))
 
-         if (data.message === 'success'){
-             localStorage.setItem('userToken', data.token)
-             setToken(data.token)
-             navigate('/home')
-         }
+        try {
+            let {data} =  await  axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin',values)
+            localStorage.setItem('userToken', data.token)
+            setToken(data.token)
+            navigate('/home')
+            toast('Success!',{
+                type:'success'
+            })
+
+        }
+        catch (error) {
+            if (error.response.status === 401){
+                toast(error.response.data.message, {
+                    type: 'error'
+                })
+            }
+        }
+
+
+
+
 
 
     }

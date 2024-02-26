@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 
 export default function Products() {
     // const [productsList,setProducts] = useState([])
-    // const [isLoading, setLoading] = useState(false)
+
 
 
     const {addToCart,setCartNumber,cartNumber} = useContext(cartContext)

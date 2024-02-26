@@ -63,7 +63,10 @@ export default function Cart() {
                     setLoading(false)
                 } else {
 
-                    console.error(error);
+                    setCartData([])
+                    setCartPrice(0)
+                    setCartNumber(0)
+                    setLoading(false)
                 }
             }
         })()
