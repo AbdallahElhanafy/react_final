@@ -3,7 +3,7 @@ import  "formik";
 import {useFormik} from "formik";
 import axios from "axios";
 import {tokenContext} from "../context/tokenContext";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 
 
@@ -47,32 +47,39 @@ export default function Login() {
         onSubmit:login
     })
     return (
-        <div >
-            <form onSubmit={formik.handleSubmit} className={'vh-100 d-flex justify-content-center align-items-center'}>
-                <div className={'row text-start w-50 bg-light shadow p-4 gy-3'}>
+        <div className={'d-flex flex-column '} >
+            <div>
+                <form onSubmit={formik.handleSubmit} className={'vh-100 d-flex justify-content-center align-items-center'}>
+                    <div className={'row text-start w-50 bg-light shadow p-4 gy-3'}>
 
-                    <div className={'col-md-12'}>
-                        <label  htmlFor={'userEmail'}>email</label>
-                        <input onChange={formik.handleChange} value={formik.values.email}  name={'email'} type={'email'} id={'userEmail'} className={'form-control'}/>
+                        <div className={'col-md-12'}>
+                            <label  htmlFor={'userEmail'}>email</label>
+                            <input onChange={formik.handleChange} value={formik.values.email}  name={'email'} type={'email'} id={'userEmail'} className={'form-control'}/>
+
+                        </div>
+
+                        <div className={'col-md-12'}>
+                            <label  htmlFor={'userPassword'}>Password</label>
+                            <input onChange={formik.handleChange} value={formik.values.password}  name={'password'} type={'password'} id={'userPassword'} className={'form-control'}/>
+
+                        </div>
+
+                        <div className={'col-md-12'}>
+                            <button className={'btn btn-primary'} type={"submit"}>Submit</button>
+                        </div>
+
+                        <div className={'col-md-12'}>
+                            <Link to={'../password'}>Forgot Password</Link>
+                        </div>
 
                     </div>
 
-                    <div className={'col-md-12'}>
-                        <label  htmlFor={'userPassword'}>Password</label>
-                        <input onChange={formik.handleChange} value={formik.values.password}  name={'password'} type={'password'} id={'userPassword'} className={'form-control'}/>
+                </form>
 
-                    </div>
+            </div>
+        <div className={'bg-danger'}>
 
-                    <div className={'col-md-12'}>
-                        <button className={'btn btn-primary'} type={"submit"}>Submit</button>
-                    </div>
-
-
-
-                </div>
-
-            </form>
-
+        </div>
 
         </div>
     )

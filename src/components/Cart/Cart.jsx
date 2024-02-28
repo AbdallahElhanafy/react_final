@@ -3,9 +3,12 @@ import {cartContext} from "../context/cartContext";
 import axios from "axios";
 import {toast} from "react-toastify";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import {useNavigate} from "react-router-dom";
+import {tokenContext} from "../context/tokenContext";
 
 export default function Cart() {
-
+    let [cartID,setCartID] = useState()
+   let checkOutNavigation = useNavigate()
    let {getCart,deleteCartItem,setCartNumber,updateProductCount,clearCart} = useContext(cartContext)
     let [cartData, setCartData ] = useState([])
     let [cartPrice, setCartPrice ] = useState(0)
@@ -49,10 +52,10 @@ export default function Cart() {
             setLoading(true)
             try {
                 let data= await getCart()
-                console.log(data)
-                    setCartData(data.data.data.products)
-                    setCartPrice(data.data.data.totalCartPrice)
-                    setLoading(false)
+                setCartID(data.data.data._id)
+                setCartData(data.data.data.products)
+                setCartPrice(data.data.data.totalCartPrice)
+                setLoading(false)
 
             } catch (error) {
                 if (error.response && error.response.status === 404) {
@@ -124,6 +127,12 @@ export default function Cart() {
 
                      </div>
                     })}
+
+                    <button onClick={
+                        ()=>{
+                            checkOutNavigation(`../checkout/${cartID}`)
+                        }
+                    } className={'my-3 btn btn-success w-100'}>Checkout</button>
 
                 </div>
                 }

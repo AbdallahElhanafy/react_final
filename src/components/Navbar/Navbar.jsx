@@ -50,6 +50,7 @@ export default function Navbar() {
                             <Link className="nav-link" aria-current="page" to={'categories'}>Categories</Link>
                             <Link className="nav-link" aria-current="page" to={'brands'}>Brands</Link>
                             <Link className="nav-link" aria-current="page" to={'cart'}>Cart</Link>
+                            <Link className="nav-link" aria-current="page" to={'allorders'}>Orders</Link>
                         </div>
 
                     : ''

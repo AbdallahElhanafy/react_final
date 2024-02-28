@@ -13,7 +13,6 @@ export default function CartProvider (props) {
 
     let baseURL = 'https://route-ecommerce.onrender.com'
     let header =  {token:localStorage.getItem('userToken')}
-    console.log(header)
 
     function addToCart (id) {
        return axios.post(`${baseURL}/api/v1/cart`, {
@@ -51,7 +50,15 @@ export default function CartProvider (props) {
         });
     }
 
-    return <cartContext.Provider value={{addToCart,setCartNumber,cartNumber,getCart,clearCart, deleteCartItem,updateProductCount}}>
+    function checkOut(cartID,values) {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=http://localhost:3000`, {
+            shippingAddress:values,
+        }, {
+            headers: header
+        })
+    }
+
+    return <cartContext.Provider value={{addToCart,setCartNumber,cartNumber,checkOut,getCart,clearCart, deleteCartItem,updateProductCount}}>
         {props.children}
         </cartContext.Provider>
 }

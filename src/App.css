@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.orderItem{
+  height: 300px !important;
+}
+ul {
+  padding: 0 !important;
+}
+
+li {
+  padding: 0 !important;
+}
