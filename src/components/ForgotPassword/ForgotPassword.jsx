@@ -2,16 +2,30 @@ import React from 'react'
 import {useFormik} from "formik";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function ForgotPassword() {
 
     const navigate = useNavigate()
 
  async   function sendCode (values){
-        let data = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords',
-            values
-        )
-     console.log(data)
+        try {
+            let data = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords',
+                values
+            )
+            console.log(data)
+            toast('Code Sent to your Email!', {
+                type:'success'
+            })
+        }
+
+        catch (e) {
+            toast('Error ', {
+                type:'error'
+            })
+        }
+
+
     }
 
 
