@@ -46,6 +46,12 @@ export default function Navbar() {
         localStorage.removeItem('userToken')
         setToken(null)
     }
+    useEffect(()=>{
+        if(localStorage.getItem('userToken') === null){
+            setToken(null)
+        }
+    })
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container">
@@ -58,7 +64,7 @@ export default function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-                    {userToken !== null?
+                    {userToken?
                         <div className="navbar-nav ">
                             <Link className="nav-link active" aria-current="page" to={'home'}>Home</Link>
                             <Link className="nav-link" aria-current="page" to={'products'}>Products</Link>
