@@ -54,7 +54,7 @@ export default function CartProvider (props) {
     }
 
     function checkOut(cartID,values) {
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=http://localhost:3000`, {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=https://react-final-smoky.vercel.app`, {
             shippingAddress:values,
         }, {
             headers: getHeader()
