@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useFormik} from "formik";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
@@ -8,8 +8,11 @@ export default function ForgotPassword() {
 
     const navigate = useNavigate()
 
- async   function sendCode (values){
+    const [isCooldown, setIsCooldown] = useState(false);
+
+    async function sendCode (values){
         try {
+            setIsCooldown(true);
             let data = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords',
                 values
             )
@@ -17,16 +20,17 @@ export default function ForgotPassword() {
             toast('Code Sent to your Email!', {
                 type:'success'
             })
+            setTimeout(() => setIsCooldown(false), 30000);
         }
 
         catch (e) {
             toast('Error ', {
                 type:'error'
             })
+            setIsCooldown(false);
         }
-
-
     }
+
 
 
     async function verifyCode(values){
@@ -59,8 +63,7 @@ export default function ForgotPassword() {
             <form onSubmit={sendCodeForm.handleSubmit} className={'w-75 mx-auto my-5'}>
                 <label>Email</label>
                 <input onBlur={sendCodeForm.handleBlur} onChange={sendCodeForm.handleChange} value={sendCodeForm.values.email} className={'form-control'} id={'email'} type={"email"}/>
-                <button type={"submit"} className={'btn btn-success'}>Send Code</button>
-            </form>
+                <button type={"submit"} className={'btn btn-success'} disabled={isCooldown}>Send Code</button>            </form>
 
             <h4> Verify Code</h4>
             <form onSubmit={verifyCodeForm.handleSubmit}>
