@@ -18,6 +18,8 @@ import Checkout from "./components/Checkout/Checkout";
 import Orders from "./components/Orders/Orders";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import WishListProvider from "./components/context/wishContext";
+import WishList from "./components/WishList/WishList";
 
 function App() {
 
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
                   <ProtectedRoute>
                   <Cart/>
                       </ProtectedRoute>},
+          {path:'wishlist', element:
+                  <ProtectedRoute>
+                      <WishList/>
+                  </ProtectedRoute>},
           {path:'password', element:
                       <ForgotPassword/>},
           {path:'reset', element:
@@ -74,8 +80,10 @@ const router = createBrowserRouter([
   return (
       <CartProvider>
           <UserTokenProvider>
-              <RouterProvider router={router}/>
-              <ToastContainer theme={'colored'}/>
+              <WishListProvider>
+                  <RouterProvider router={router}/>
+                  <ToastContainer theme={'colored'}/>
+              </WishListProvider>
           </UserTokenProvider>
       </CartProvider>
 

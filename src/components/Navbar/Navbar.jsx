@@ -2,10 +2,11 @@ import React, {useContext, useEffect} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {tokenContext} from "../context/tokenContext";
 import {cartContext} from "../context/cartContext";
+import {wishContext} from "../context/wishContext";
 
 export default function Navbar() {
     const {userToken,setToken} = useContext(tokenContext)
-
+    const {getWishList,wishList,setWishList} = useContext(wishContext)
     const {cartNumber,setCartNumber,getCart} = useContext(cartContext)
 
 
@@ -21,9 +22,23 @@ export default function Navbar() {
 
     }
 
+    async function getWish(){
+        try {
+            let {data} =  await getWishList()
+            console.log(data)
+            setWishList(data.data)
+        }
+        catch (e) {
+            console.log(e)
+            setWishList([])
+        }
+
+    }
+
 
     useEffect(()=>{
         getCartNumber()
+        getWish()
     },[])
 
 
@@ -51,6 +66,7 @@ export default function Navbar() {
                             <Link className="nav-link" aria-current="page" to={'brands'}>Brands</Link>
                             <Link className="nav-link" aria-current="page" to={'cart'}>Cart</Link>
                             <Link className="nav-link" aria-current="page" to={'allorders'}>Orders</Link>
+                            <Link className="nav-link" aria-current="page" to={'wishlist'}>WishList</Link>
                         </div>
 
                     : ''
