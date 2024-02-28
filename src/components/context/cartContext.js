@@ -1,5 +1,6 @@
-import {createContext, useState} from "react";
+import {createContext, useContext, useState} from "react";
 import axios from "axios";
+import {tokenContext} from "./tokenContext";
 
 
 export let cartContext = createContext()
@@ -10,22 +11,24 @@ export default function CartProvider (props) {
     const [cartNumber , setCartNumber] = useState(0)
 
 
-
+    function getHeader() {
+        return { token: localStorage.getItem('userToken') };
+    }
     let baseURL = 'https://route-ecommerce.onrender.com'
-    let header =  {token:localStorage.getItem('userToken')}
 
     function addToCart (id) {
+
        return axios.post(`${baseURL}/api/v1/cart`, {
             productId: id
         }, {
-            headers: header
+            headers: getHeader()
         });
 
     }
 
     function deleteCartItem(id) {
         return axios.delete(`${baseURL}/api/v1/cart/${id}`, {
-            headers: header
+            headers: getHeader()
         })
     }
 
@@ -33,20 +36,20 @@ export default function CartProvider (props) {
         return axios.put(`${baseURL}/api/v1/cart/${id}`, {
             count: count
         }, {
-            headers: header
+            headers: getHeader()
         })
     }
 
     function getCart () {
         return axios.get(`${baseURL}/api/v1/cart`,  {
-            headers: header
+            headers: getHeader()
         });
 
     }
 
     function clearCart(){
         return axios.delete(`${baseURL}/api/v1/cart`,  {
-            headers: header
+            headers:getHeader()
         });
     }
 
@@ -54,7 +57,7 @@ export default function CartProvider (props) {
         return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=http://localhost:3000`, {
             shippingAddress:values,
         }, {
-            headers: header
+            headers: getHeader()
         })
     }
 

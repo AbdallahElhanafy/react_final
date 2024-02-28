@@ -6,12 +6,13 @@ import {Link} from "react-router-dom";
 import {cartContext} from "../context/cartContext";
 import {toast} from "react-toastify";
 import {wishContext} from "../context/wishContext";
+import {tokenContext} from "../context/tokenContext";
 
 export default function Products() {
     // const [productsList,setProducts] = useState([])
 
 
-
+    const {userToken} = useContext(tokenContext)
     const {addToCart,setCartNumber,cartNumber} = useContext(cartContext)
     const { addItem,removeItem,getWishList,wishList,setWishList} = useContext(wishContext)
 
@@ -22,14 +23,21 @@ export default function Products() {
     let {data,isLoading} = useQuery('product',getProducts,)
 
    async function addToMyCart (id) {
-       let {data} =  await addToCart(id)
+        try {
+            let {data} =  await addToCart(id)
+            toast(data.message,{
+                type: "success"
+            } )
+            setCartNumber(data.numOfCartItems)
+        }
+        catch (e) {
+            toast(e,{
+                type: "success"
+            } )
+        }
 
-       if(data.status=== 'success'){
-           toast(data.message,{
-               type: "success"
-           } )
-       }
-       setCartNumber(data.numOfCartItems)
+
+
     }
     async function getWish(){
         try {
@@ -87,7 +95,9 @@ export default function Products() {
         return wishlist.some(product => product._id === id);
     }
 
-
+    useEffect(()=>{
+        getWish()
+    })
 
 
 

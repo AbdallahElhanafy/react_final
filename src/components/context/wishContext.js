@@ -6,7 +6,9 @@ export let wishContext = createContext()
 export default function WishListProvider(props){
 
     let baseURL = 'https://route-ecommerce.onrender.com'
-    let header =  {token:localStorage.getItem('userToken')}
+    function getHeader() {
+        return { token: localStorage.getItem('userToken') };
+    }
     let [wishList, setWishList] = useState([])
 
     function addItem (productID){
@@ -14,19 +16,19 @@ export default function WishListProvider(props){
      return    axios.post(`${baseURL}/api/v1/wishlist`, {
             productId:productID
         },{
-            headers:header
+            headers:getHeader()
         })
     }
 
     function removeItem(productID){
        return  axios.delete(`${baseURL}/api/v1/wishlist/${productID}`,{
-            headers:header
+            headers:getHeader()
         })
     }
 
     function getWishList(){
         return axios.get(`${baseURL}/api/v1/wishlist`, {
-            headers: header
+            headers: getHeader()
         })
     }
 
