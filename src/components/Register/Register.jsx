@@ -16,7 +16,7 @@ export default function Register() {
     name: Yup.string().min(3, 'Minimum length is 3').max(15,'max length is 15').required('Name is required'),
         email: Yup.string().required('Email is required').matches( /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'Enter a correct email address'),
         phone: Yup.string().required('Phone is required').matches(/^(010|011|012|015)\d{8}$/,'Enter a correct phone number'),
-        password: Yup.string().required('password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,'Enter a correct password'),
+        password: Yup.string().required('password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W])[A-Za-z\d_\W]{8,}$/,'Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character including underscore and be at least 8 characters long'),
         rePassword: Yup.string().oneOf([
             Yup.ref('password')
         ], 'Passwords are not matching').required('Re-password is required')
