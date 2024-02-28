@@ -1,9 +1,15 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import Category from "../Category/Category";
 import Products from "../Products/Products";
 import HomeSlider from "../slider/slider";
+import {tokenContext} from "../context/tokenContext";
 
 export default function Home() {
+    const {userToken,setToken} = useContext(tokenContext)
+
+    useEffect(() => {
+        setToken(localStorage.getItem('userToken'))
+    }, []);
     return (
         <div>
             <HomeSlider/>
