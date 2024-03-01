@@ -36,13 +36,16 @@ export default function Cart() {
 
     async function updateCount(itemID,count){
 
-       let data = await updateProductCount(itemID,count)
-        setCartData(data.data.data.products)
-        setCartPrice(data.data.data.totalCartPrice)
-
-        toast('Item updated successfully!',{
-            type: "success"
-        })
+        if (count === 0) {
+            await deleteItem(itemID);
+        } else {
+            let data = await updateProductCount(itemID, count);
+            setCartData(data.data.data.products);
+            setCartPrice(data.data.data.totalCartPrice);
+            toast('Item updated successfully!', {
+                type: "success"
+            });
+        }
 
     }
 
