@@ -86,8 +86,8 @@ export default function Navbar() {
 
                         </div>
                         :  <div  className={' navbar-nav ms-auto d-flex flex-row align-items-center'}>
-                            <Link to={'/cart'} className={'fa-solid fa-shopping-cart text-success'}>
-                                <span>{cartNumber}</span>
+                            <Link to={'/cart'} className={'fa-solid fa-shopping-cart text-white p-2 text-decoration-none bg-success'}>
+                                <span> {cartNumber}</span>
                             </Link>
                             <Link onClick={()=>{
                                 logout()

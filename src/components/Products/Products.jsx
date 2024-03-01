@@ -16,6 +16,7 @@ export default function Products() {
     const {addToCart,setCartNumber,cartNumber} = useContext(cartContext)
     const { addItem,removeItem,getWishList,wishList,setWishList} = useContext(wishContext)
 
+
    async function getProducts() {
     return await    axios.get('https://route-ecommerce.onrender.com/api/v1/products')
     }
@@ -129,7 +130,10 @@ export default function Products() {
                                         <button onClick={()=>{
                                             removeFromWishList(product._id)
                                         }} className={'btn border-danger '}>
-                                            <i  className="fa-solid fa-heart text-danger"></i>
+                                            <i  className="fa-solid fa-heart text-danger">
+
+
+                                            </i>
                                         </button>
                                         :
                                         <button onClick={()=>{

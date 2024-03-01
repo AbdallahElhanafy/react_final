@@ -65,7 +65,7 @@ export default function Login() {
                         </div>
 
                         <div className={'col-md-12'}>
-                            <button className={'btn btn-primary'} type={"submit"}>Submit</button>
+                            <button disabled={!(formik.dirty)} className={'btn btn-success'} type={"submit"}>Submit</button>
                         </div>
 
                         <div className={'col-md-12'}>
