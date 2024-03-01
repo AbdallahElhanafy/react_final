@@ -69,6 +69,7 @@ export default function Register() {
         <div >
             <form onSubmit={formik.handleSubmit} className={'vh-100 d-flex justify-content-center align-items-center'}>
                 <div className={'row text-start w-50 bg-light shadow p-4 gy-3'}>
+                    <h1 className={'text-success'}>Create an Account</h1>
                     <div className={'col-md-12'}>
                         <label  htmlFor={'userName'}>Name</label>
                         <input onBlur={formik.handleBlur} value={formik.values.name} onChange={formik.handleChange} name={'name'} type={'text'} id={'userName'} className={'form-control'}/>

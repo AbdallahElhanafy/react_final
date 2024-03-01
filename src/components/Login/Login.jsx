@@ -51,7 +51,7 @@ export default function Login() {
             <div>
                 <form onSubmit={formik.handleSubmit} className={'vh-100 d-flex justify-content-center align-items-center'}>
                     <div className={'row text-start w-50 bg-light shadow p-4 gy-3'}>
-
+                        <h1 className={'text-success'}>Login</h1>
                         <div className={'col-md-12'}>
                             <label  htmlFor={'userEmail'}>email</label>
                             <input onChange={formik.handleChange} value={formik.values.email}  name={'email'} type={'email'} id={'userEmail'} className={'form-control'}/>

@@ -58,19 +58,26 @@ export default function ForgotPassword() {
 
 
     return (
-        <div >
-            <h3>Forgot password:</h3>
-            <form onSubmit={sendCodeForm.handleSubmit} className={'w-75 mx-auto my-5'}>
+
+            <div className={'d-flex flex-column justify-content-center align-items-center vh-100 '}>
+
+                <div className={' shadow w-75 my-3 py-3  mx-auto my-5'} >
+            <form onSubmit={sendCodeForm.handleSubmit} className={'my-3 p-3 '}>
+                <h3 className={'text-success my-3'}>Forgot password:</h3>
                 <label>Email</label>
                 <input onBlur={sendCodeForm.handleBlur} onChange={sendCodeForm.handleChange} value={sendCodeForm.values.email} className={'form-control'} id={'email'} type={"email"}/>
-                <button type={"submit"} className={'btn btn-success'} disabled={isCooldown}>Send Code</button>            </form>
+                <button type={"submit"} className={'btn btn-success my-3'} disabled={isCooldown}>Send Code</button>
 
-            <h4> Verify Code</h4>
-            <form onSubmit={verifyCodeForm.handleSubmit}>
-            <label>Enter Verify Code</label>
+                </form>
+
+                <form onSubmit={verifyCodeForm.handleSubmit} className={'my-3 p-3  '}>
+                    <h3 className={'text-success my-3'}> Verify Code</h3>
+                 <label>Enter Verify Code</label>
                 <input className={'form-control'} onBlur={verifyCodeForm.handleBlur} onChange={verifyCodeForm.handleChange} id={'resetCode'} name={'resetCode'} type={'text'} value={verifyCodeForm.values.resetCode}/>
-                <button type={'submit'} className={'btn btn-success'}>Verify Code</button>
+                <button type={'submit'} disabled={!(verifyCodeForm.isValid && verifyCodeForm.dirty)} className={'btn btn-success my-3'}>Verify Code</button>
+
             </form>
+        </div>
 
         </div>
     )
